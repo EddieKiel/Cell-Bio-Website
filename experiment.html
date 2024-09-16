@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cell Bio Exam 1 Practice</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Roboto', sans-serif;
+            padding: 40px;
+            background-color: #f7f9fc;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+
+        /* Card Style for Questions */
+        .question {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .question h2 {
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            color: #34495e;
+        }
+
+        /* Styled list for options */
+        .options {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .options li {
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        /* Button Style */
+        .btn {
+            display: block;
+            width: 100%;
+            max-width: 200px;
+            margin: 20px auto;
+            padding: 12px 30px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1em;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-3px);
+        }
+
+        /* Feedback Styles */
+        .correct {
+            color: #27ae60;
+            font-weight: bold;
+        }
+
+        .incorrect {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+
+        /* Responsive for smaller screens */
+        @media (max-width: 768px) {
+            body {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Cell Bio Exam 1 Practice</h1>
+    <div id="quiz"></div>
+    <button class="btn" onclick="checkAnswers()">Submit</button>
+    <div id="result"></div>
+
+    <script>
+         const questions = [
+            {
+                question: "During a heart attack, exosomes are released from heart cells. What is the primary role of these exosomes in the repair process?",
+                options: [
+                    "A) They carry inflammatory signals that attract immune cells to repair damaged heart tissue.",
+                    "B) They dispose of waste materials by merging with lysosomes.",
+                    "C) They directly form new cardiac muscle cells to replace damaged ones.",
+                    "D) They suppress immune responses to prevent further damage."
+                ],
+                correct: 0
+            },
+            {
+                question: "Exosomes play a significant role in cancer metastasis by carrying microRNAs (miRNAs). What function do these miRNAs serve in the context of tumor progression?",
+                options: [
+                    "A) They enhance immune cell recognition of tumor cells.",
+                    "B) They inhibit normal mRNA, promoting tumor growth and space creation.",
+                    "C) They stimulate apoptosis in cancer cells.",
+                    "D) They break down glucose to fuel cancer cell metabolism."
+                ],
+                correct: 1
+            },
+            {
+                question: "How are exosomes formed and released from a cell?",
+                options: [
+                    "A) They are formed in the cytoplasm and released through clathrin-mediated endocytosis.",
+                    "B) They are created in multicellular vesicles inside the cell and expelled without merging with the plasma membrane.",
+                    "C) They merge with lysosomes to break down materials before being expelled.",
+                    "D) They are secreted directly by vesicles that fuse with the cell membrane during exocytosis."
+                ],
+                correct: 1
+            },
+            {
+                question: "Which of the following is a direct consequence of cancer cell-derived exosomes releasing miRNA?",
+                options: [
+                    "A) Reduced angiogenesis in the tumor microenvironment.",
+                    "B) Enhanced immune response to eliminate cancer cells.",
+                    "C) Promotion of blood vessel formation and degradation of nearby normal cells.",
+                    "D) Inhibition of cancer cell proliferation."
+                ],
+                correct: 2
+            },
+            {
+                question: "A researcher wants to investigate how exosomes contribute to heart repair after a heart attack. Which of the following is the most likely observation?",
+                options: [
+                    "A) Exosomes carry enzymes that directly repair damaged DNA in heart cells.",
+                    "B) Exosomes stimulate the release of inflammatory cytokines that attract immune cells to the site of damage.",
+                    "C) Exosomes fuse with damaged heart cells, promoting cell survival.",
+                    "D) Exosomes reduce blood flow to damaged tissue, minimizing further injury."
+                ],
+                correct: 1
+            },
+            {
+                question: "A drug is designed to weaken bacterial cell walls by targeting peptidoglycan synthesis. What effect would this drug likely have on bacterial cells, and why might it be ineffective against human cells?",
+                options: [
+                    "A) The drug would cause bacterial cells to lyse due to osmotic pressure, but would not affect human cells because they lack peptidoglycan in their cell walls.",
+                    "B) The drug would inhibit bacterial ATP production by targeting the mesosome, but human cells are unaffected as they lack mesosomes.",
+                    "C) The drug would disrupt bacterial ribosome function, but human cells remain unaffected as they have eukaryotic ribosomes.",
+                    "D) The drug would prevent plasmid transfer between bacteria, which is crucial for maintaining cell structure in human cells."
+                ],
+                correct: 0
+            },
+            {
+                question: "Mitochondria in eukaryotic cells are thought to have evolved from an ancient prokaryotic symbiosis. Which of the following characteristics provides the strongest evidence for this theory?",
+                options: [
+                    "A) Mitochondria have a double membrane, with the inner membrane resembling the lipid composition of prokaryotes.",
+                    "B) Mitochondria produce ATP through oxidative phosphorylation, which is also present in prokaryotic cells.",
+                    "C) Mitochondria contain DNA that is linear, similar to the structure of eukaryotic nuclear DNA.",
+                    "D) Mitochondria can undergo mitosis like prokaryotic cells, forming new mitochondria within the eukaryotic cell."
+                ],
+                correct: 0
+            },
+            {
+                question: "Antibiotic-resistant genes are often found on bacterial plasmids. How might bacteria rapidly acquire resistance to a new antibiotic introduced into their environment?",
+                options: [
+                    "A) The antibiotic causes mutations in the bacterial DNA, which are passed to neighboring cells through mesosomes.",
+                    "B) Bacteria can exchange plasmids containing antibiotic resistance genes through pili, transferring them from one cell to another.",
+                    "C) Bacteria mutate their ribosomes to prevent the antibiotic from binding, and this resistance is then inherited by subsequent generations.",
+                    "D) Antibiotics trigger the degradation of the cell wall, which leads to the incorporation of foreign DNA containing resistance genes."
+                ],
+                correct: 1
+            },
+            {
+                question: "Which of the following best describes the role of FtsZ and ParM proteins in prokaryotic cells?",
+                options: [
+                    "A) FtsZ is involved in maintaining the cell's shape, while ParM assists in the replication of plasmids.",
+                    "B) FtsZ plays a role in cell division by forming a contractile ring during cytokinesis, while ParM helps in segregating plasmids during cell division.",
+                    "C) FtsZ is a component of the bacterial ribosome, whereas ParM is a motor protein involved in flagellar movement.",
+                    "D) Both FtsZ and ParM form the flagellum, allowing for bacterial locomotion."
+                ],
+                correct: 1
+            },
+            {
+                question: "A mutation that impairs the proton pump in lysosomes leads to reduced acidity inside the organelle. Which of the following would most likely be a consequence of this mutation?",
+                options: [
+                    "A) The accumulation of undigested macromolecules within the lysosome.",
+                    "B) Increased ATP production due to enhanced lysosomal enzyme activity.",
+                    "C) Enhanced autophagy of mitochondria leading to cell survival during stress.",
+                    "D) Increased protein synthesis in the endoplasmic reticulum due to the build-up of amino acids."
+                ],
+                correct: 0
+            },
+            {
+                question: "Peroxisomes in liver cells are involved in detoxifying harmful chemicals. What would likely occur in a person with a genetic disorder that causes dysfunctional peroxisomes?",
+                options: [
+                    "A) A buildup of cholesterol due to impaired synthesis in the mitochondria.",
+                    "B) Accumulation of fatty acids and reactive oxygen species, leading to cellular damage.",
+                    "C) Reduced ability to produce ATP, leading to decreased energy availability in the cell.",
+                    "D) Decreased production of bile salts, leading to impaired digestion of proteins."
+                ],
+                correct: 1
+            },
+            {
+                question: "During periods of intense detoxification in the liver, what change in the endoplasmic reticulum would you expect to observe?",
+                options: [
+                    "A) An increase in rough ER to support greater protein synthesis for export.",
+                    "B) An increase in smooth ER to enhance the breakdown of toxic substances.",
+                    "C) An increase in lysosomes to remove damaged proteins from the detoxification process.",
+                    "D) An increase in ribosomes to synthesize membrane proteins for the plasma membrane."
+                ],
+                correct: 1
+            },
+            {
+                question: "While eukaryotic and prokaryotic ribosomes both synthesize proteins, they differ in size. Which statement best explains why antibiotics like tetracycline selectively inhibit bacterial protein synthesis?",
+                options: [
+                    "A) Prokaryotic ribosomes are smaller and structurally different, allowing antibiotics to specifically bind to them without affecting eukaryotic ribosomes.",
+                    "B) Eukaryotic ribosomes have a higher affinity for antibiotics, preventing their use in bacterial cells.",
+                    "C) Prokaryotic ribosomes are more resistant to antibiotics due to their complex structure.",
+                    "D) Eukaryotic ribosomes use different cofactors that are not targeted by antibiotics."
+                ],
+                correct: 0
+            },
+            {
+                question: "A drug disrupts the peptidoglycan layer of bacteria. What immediate effect does this have on bacterial cell function and structure?",
+                options: [
+                    "A) Increased ATP production due to enhanced cell wall permeability",
+                    "B) Disruption of DNA replication, leading to bacterial cell death",
+                    "C) Weakened cell wall, making bacteria susceptible to osmotic pressure and lysis",
+                    "D) Inhibition of protein synthesis by disrupting ribosomal function"
+                ],
+                correct: 2
+            },
+            {
+                question: "Why might antibiotics that target bacterial cell walls not affect human cells directly?",
+                options: [
+                    "A) Human cells are protected by their nuclear membranes",
+                    "B) Human cells lack peptidoglycan cell walls, which are specific to bacteria",
+                    "C) Human cells have stronger cell walls made of different materials",
+                    "D) Antibiotics targeting cell walls also disrupt human cell membranes, but more slowly"
+                ],
+                correct: 1
+            },
+            {
+                question: "What would happen to a bacterial cell if its cell wall were weakened and it was placed in a hypotonic solution?",
+                options: [
+                    "A) Water would rush into the cell, causing it to swell and potentially burst",
+                    "B) The cell would shrink due to water loss",
+                    "C) The weakened cell wall would allow the cell to grow more rapidly",
+                    "D) The bacterial cell would become resistant to further damage"
+                ],
+                correct: 0
+            },
+            {
+                question: "Explain how bacterial mesosomes are functionally similar to mitochondria in eukaryotic cells.",
+                options: [
+                    "A) Both are involved in the replication of DNA",
+                    "B) Mesosomes assist in cell division, while mitochondria aid in protein synthesis",
+                    "C) Both mesosomes and mitochondria participate in cellular respiration and energy production",
+                    "D) Mesosomes degrade misfolded proteins, while mitochondria synthesize ATP"
+                ],
+                correct: 2
+            },
+            {
+                question: "A bacterial infection spreads antibiotic resistance through plasmid transfer. How does this horizontal gene transfer impact future generations of bacteria?",
+                options: [
+                    "A) It prevents the spread of resistance beyond the initial infection",
+                    "B) It allows antibiotic resistance to be passed to other bacteria, even across species",
+                    "C) It accelerates the development of new antibiotic-resistant human cells",
+                    "D) It causes bacteria to die off faster, limiting the spread of the infection"
+                ],
+                correct: 1
+            },
+            {
+                question: "Considering the ribosomes of prokaryotes are smaller than those of eukaryotes, why would antibiotics that target bacterial ribosomes not affect human ribosomes?",
+                options: [
+                    "A) Antibiotics are designed to degrade bacterial cell membranes, sparing ribosomes",
+                    "B) Bacterial ribosomes (70S) are structurally different from eukaryotic ribosomes (80S), allowing selective targeting",
+                    "C) Human ribosomes are located in the nucleus, while bacterial ribosomes float freely",
+                    "D) Bacterial ribosomes use a different mechanism for protein synthesis that antibiotics target"
+                ],
+                correct: 1
+            },
+            {
+                question: "Describe how the presence of the FtsZ protein in both prokaryotes and mitochondria supports the theory of endosymbiosis.",
+                options: [
+                    "A) FtsZ is required for both prokaryotic and mitochondrial energy production",
+                    "B) FtsZ facilitates flagellar movement in both prokaryotes and mitochondria",
+                    "C) FtsZ is involved in cell division in both prokaryotes and mitochondria, suggesting a shared evolutionary origin",
+                    "D) FtsZ produces ribosomes in both cell types, supporting their common ancestry"
+                ],
+                correct: 2
+            },
+            {
+                question: "If a drug inhibits the activity of the Pan complex in prokaryotes, what cellular function is likely disrupted?",
+                options: [
+                    "A) Protein degradation, leading to accumulation of damaged proteins",
+                    "B) DNA replication, preventing cell division",
+                    "C) ATP production through oxidative phosphorylation",
+                    "D) Ribosome assembly, disrupting protein synthesis"
+                ],
+                correct: 0
+            },
+            {
+                question: "A mutation prevents the formation of bacterial flagella. How would this affect bacterial motility and survival in a competitive environment?",
+                options: [
+                    "A) The bacteria would be unable to divide, reducing survival rates",
+                    "B) Lack of flagella would hinder movement toward nutrients, reducing survival chances",
+                    "C) The mutation would enhance bacterial growth, allowing the cell to outcompete others",
+                    "D) Bacteria would still move via pili, compensating for the lack of flagella"
+                ],
+                correct: 1
+            },
+            {
+                question: "Explain how bacteria use pili to contribute to the spread of antibiotic resistance in hospital environments.",
+                options: [
+                    "A) Pili break down antibiotics, rendering them ineffective",
+                    "B) Pili transfer genetic material, including resistance genes, between bacteria",
+                    "C) Pili degrade cell walls of nearby bacteria, causing their death",
+                    "D) Pili create biofilms that protect bacteria from antibiotics"
+                ],
+                correct: 1
+            },
+            {
+                question: "Compare the function of the plasma membrane in bacteria with that in eukaryotic cells. Why is membrane integrity crucial for cell survival?",
+                options: [
+                    "A) The plasma membrane controls nutrient and waste transport; its integrity maintains homeostasis",
+                    "B) The plasma membrane supports cell structure, and its breakdown leads to cell death",
+                    "C) Plasma membranes produce energy for both bacteria and eukaryotes, and damage impairs ATP production",
+                    "D) Membrane integrity prevents viruses from entering the cell and causing infections"
+                ],
+                correct: 0
+            },
+            {
+                question: "How do prokaryotic and eukaryotic cells maintain their shape, and what cellular structures are involved in this process?",
+                options: [
+                    "A) Both rely on cell walls to maintain shape and provide structural support",
+                    "B) Prokaryotes use MreB and eukaryotes use a cytoskeleton (microfilaments, microtubules) to maintain shape",
+                    "C) Eukaryotes have thicker cell membranes, while prokaryotes rely on ribosomes",
+                    "D) Both types of cells rely on their flagella to maintain shape and cellular integrity"
+                ],
+                correct: 1
+            },
+            {
+                question: "A bacterial infection is resistant to antibiotics because of plasmid transfer. How can plasmids affect human cells?",
+                options: [
+                    "A) Plasmids can directly transfer into human cells, causing mutations",
+                    "B) Plasmids carry genes for antibiotic resistance that increase the difficulty of treating bacterial infections in humans",
+                    "C) Plasmids replicate in human cells, spreading resistance genes",
+                    "D) Plasmids integrate into human DNA, leading to cancerous cell growth"
+                ],
+                correct: 1
+            },
+            {
+                question: "What would happen to a eukaryotic cell lacking proper laminin function within its nucleus?",
+                options: [
+                    "A) The cell would divide more rapidly due to the lack of nuclear structure",
+                    "B) The nucleus would lose its shape, disrupting DNA replication and RNA transcription",
+                    "C) Laminins would cause cell membrane damage, leading to cell lysis",
+                    "D) The cell would produce excess proteins due to increased transcription"
+                ],
+                correct: 1
+            },
+            {
+                question: "Explain how enzymes in eukaryotic cells are dependent on correct amino acid sequences and how mutations could impact cellular processes.",
+                options: [
+                    "A) Mutations in amino acid sequences can alter enzyme structure, impairing substrate binding and catalysis",
+                    "B) Enzymes rely on amino acids to transport substrates across cell membranes, and mutations prevent transport",
+                    "C) Mutations only affect enzyme activation but not overall cellular processes",
+                    "D) Enzymes in eukaryotes are unaffected by mutations, as they regenerate quickly"
+                ],
+                correct: 0
+            },
+            {
+                question: "Why do metabolic processes in eukaryotic cells occur mostly across or in association with membranes?",
+                options: [
+                    "A) Membranes allow direct access to energy sources like glucose and ATP",
+                    "B) Membranes provide compartmentalization and surfaces for enzymes, facilitating efficient metabolic reactions",
+                    "C) Membranes are the primary source of energy in cells",
+                    "D) Membrane proteins actively break down nutrients for energy production"
+                ],
+                correct: 1
+            },
+            {
+                question: "A researcher is attempting to create a synthetic cell. They have successfully constructed a boundary system and implemented a mechanism for processing free energy but find that the cell still does not exhibit any life-like characteristics. Based on cellular principles, which component is most likely missing and why?",
+                options: [
+                    "A) DNA repair mechanisms",
+                    "B) A system for maintaining ion balance",
+                    "C) A method for information storage and retrieval",
+                    "D) A complex cytoskeletal network"
+                ],
+                correct: 2
+            },
+            {
+    question: "A synthetic biology team is designing a cell that can respond to changes in temperature by altering its gene expression. What fundamental characteristic of living cells does this capability represent, and why is it essential for life?",
+    options: [
+        "A) Self-regulation",
+        "B) Maintaining a low surface area-to-volume ratio",
+        "C) Information storage",
+        "D) Inhibition of cell proliferation"
+    ],
+    correct: 0
+},
+{
+    question: "Why is the surface area-to-volume ratio an important consideration in cellular biology, and what consequence would an excessively large ratio have on a typical cell’s ability to survive?",
+    options: [
+        "A) It decreases the cell's ability to replicate DNA efficiently.",
+        "B) It reduces the cell’s ability to process free energy from the environment.",
+        "C) It impairs diffusion of nutrients and wastes, leading to inefficient cellular function.",
+        "D) It enhances the cell’s ability to reproduce quickly, leading to overproliferation."
+    ],
+    correct: 2
+},
+{
+    question: "A multicellular organism displays unregulated cell growth and failure of cells to undergo apoptosis. Which characteristics of multicellularity have been disrupted in this scenario?",
+    options: [
+        "A) Efficient resource transport and regulation of cell death",
+        "B) Inhibition of cell proliferation and regulation of cell death",
+        "C) Division of labor and control of the extracellular environment",
+        "D) Creation of extracellular environment and regulation of cell growth"
+    ],
+    correct: 1
+},
+{
+    question: "Prokaryotes lack membrane-bound organelles but can still form multicellular aggregations. Which of the following benefits would a prokaryotic colony likely gain from forming a multicellular structure?",
+    options: [
+        "A) Enhanced division of labor between cells",
+        "B) More efficient resource transport and waste removal",
+        "C) Increased control over their external environment",
+        "D) Higher capacity for DNA storage and retrieval"
+    ],
+    correct: 2
+},
+{
+    question: "A genetic mutation occurs in a plant cell, disrupting the production of cellulose. Which of the following is the most likely consequence for the plant cell?",
+    options: [
+        "A) The cell will no longer be able to store water.",
+        "B) The plant cell will have impaired photosynthesis.",
+        "C) The structural integrity of the cell wall will be compromised, leading to cell collapse.",
+        "D) The plant cell will fail to maintain a high proton gradient within the thylakoid membrane."
+    ],
+    correct: 2
+},
+{
+    question: "If a plant cell's central vacuole fails to accumulate sufficient water, what is the most immediate effect on the cell?",
+    options: [
+        "A) The cell will be unable to perform photosynthesis.",
+        "B) The cytoplasm will shift towards a more acidic environment.",
+        "C) The structural support of the cell will decrease, leading to wilting.",
+        "D) The plant will have an excess of stored starch in its plastids."
+    ],
+    correct: 2
+},
+{
+    question: "Chloroplasts have three different membranes, including the thylakoid membrane. If a toxin specifically disrupts the function of the thylakoid membrane, which process would be directly affected?",
+    options: [
+        "A) Carbon fixation during the Calvin cycle",
+        "B) ATP and NADPH production through the light-dependent reactions",
+        "C) Chloroplast replication via binary fission",
+        "D) DNA transcription within the chloroplast"
+    ],
+    correct: 1
+},
+{
+    question: "A researcher isolates a plant cell and notes that it lacks plastids. Which of the following cellular processes will be most directly affected?",
+    options: [
+        "A) DNA replication",
+        "B) Protein synthesis",
+        "C) Storage of important molecules such as starch",
+        "D) Maintenance of the cell's turgor pressure"
+    ],
+    correct: 2
+},
+{
+    question: "If the outer eukaryotic membrane of chloroplasts in a plant cell were damaged but the inner prokaryotic membrane remained intact, which of the following would most likely occur?",
+    options: [
+        "A) Photosynthesis would be unaffected since the inner membrane performs all critical functions.",
+        "B) The chloroplast would lose its ability to produce energy efficiently, leading to impaired photosynthesis.",
+        "C) The cell would no longer be able to divide properly because of a lack of chloroplast replication.",
+        "D) The thylakoid membrane would collapse, leading to an immediate halt in glucose production."
+    ],
+    correct: 1
+},
+{
+    question: "Why do water molecules exhibit strong surface tension?",
+    options: [
+        "A) Because water has strong covalent bonds between hydrogen and oxygen.",
+        "B) Due to hydrogen bonding between water molecules, which creates cohesion at the surface.",
+        "C) Because of ionic bonds between water molecules.",
+        "D) Due to van der Waals forces acting between adjacent water molecules."
+    ],
+    correct: 1
+},
+{
+    question: "If a cell is placed in a highly saline solution, how will the sodium ions interact with the water molecules in the solution?",
+    options: [
+        "A) Sodium ions will form covalent bonds with the water molecules.",
+        "B) Sodium ions will form hydrogen bonds with hydrogen atoms in the water molecules.",
+        "C) Sodium ions will be surrounded by water molecules, with oxygen atoms interacting with the sodium ions.",
+        "D) Sodium ions will disrupt the hydrogen bonding between water molecules, leading to a collapse of water structure."
+    ],
+    correct: 2
+},
+{
+    question: "Which of the following best explains why sodium ions cannot pass through the lipid bilayer easily?",
+    options: [
+        "A) Sodium ions are too large to fit through the lipid molecules.",
+        "B) The hydration shell formed by water molecules around sodium ions prevents them from slipping through the nonpolar lipid bilayer.",
+        "C) Sodium ions form covalent bonds with lipid molecules, preventing passage.",
+        "D) Sodium ions have van der Waals interactions with the lipids, making passage difficult."
+    ],
+    correct: 1
+},
+{
+    question: "When salt (NaCl) dissolves in water, what happens to the ionic bonds between sodium (Na⁺) and chloride (Cl⁻)?",
+    options: [
+        "A) The ionic bonds remain intact because water is a nonpolar solvent.",
+        "B) The ionic bonds are strengthened due to water's high surface tension.",
+        "C) The ionic bonds are weakened and break because water's polar nature interacts with both Na⁺ and Cl⁻ ions.",
+        "D) The ionic bonds are replaced by covalent bonds between water molecules and NaCl."
+    ],
+    correct: 2
+},
+{
+    question: "A researcher observes that the surface tension of a liquid decreases when a nonpolar substance is added. What is the most likely explanation for this observation?",
+    options: [
+        "A) The nonpolar substance breaks hydrogen bonds between water molecules.",
+        "B) The nonpolar substance increases covalent bonding in the solution.",
+        "C) The nonpolar substance enhances ionic bonding between water molecules.",
+        "D) The nonpolar substance forms hydrogen bonds, increasing surface tension."
+    ],
+    correct: 0
+},
+{
+    question: "If you were to increase the pH of a solution from 5 to 7, how would the concentration of hydrogen ions (H⁺) change?",
+    options: [
+        "A) It would decrease by a factor of 100.",
+        "B) It would increase by a factor of 100.",
+        "C) It would decrease by a factor of 10.",
+        "D) It would increase by a factor of 10."
+    ],
+    correct: 0
+},
+{
+    question: "Which of the following would best describe the type of bond formed between hydrogen and oxygen within a water molecule?",
+    options: [
+        "A) Covalent bonds, where electrons are shared between hydrogen and oxygen atoms.",
+        "B) Ionic bonds, where electrons are transferred between hydrogen and oxygen atoms.",
+        "C) Hydrogen bonds, where electrons are shared between hydrogen atoms.",
+        "D) Van der Waals forces holding the atoms together."
+    ],
+    correct: 0
+},
+{
+    question: "A scientist modifies the amount of water present in a developing mesenchymal cell. What is the most likely effect on the cell?",
+    options: [
+        "A) It will lose its ability to generate ATP.",
+        "B) The type of tissue the cell differentiates into may change.",
+        "C) The cell will immediately undergo apoptosis.",
+        "D) Its pH will drastically change, leading to cell damage."
+    ],
+    correct: 1
+},
+{
+    question: "What happens to the strength of hydrogen bonds when they are found in large numbers in a water sample?",
+    options: [
+        "A) The strength of each individual bond decreases.",
+        "B) The cumulative strength of hydrogen bonding increases, despite each bond being individually weak.",
+        "C) Each hydrogen bond becomes as strong as a covalent bond.",
+        "D) Hydrogen bonds cannot exist in large numbers because they are inherently unstable."
+    ],
+    correct: 1
+},
+{
+    question: "Van der Waals forces are important in many biological interactions. In the context of water, how would these forces compare to hydrogen bonds in strength?",
+    options: [
+        "A) Van der Waals forces are stronger than hydrogen bonds.",
+        "B) Van der Waals forces are comparable in strength to covalent bonds.",
+        "C) Van der Waals forces are weaker than hydrogen bonds.",
+        "D) Van der Waals forces are important in creating the structure of water molecules."
+    ],
+    correct: 2
+},
+{
+    question: "What is the effect of changing the position of the carbonyl group in a glucose molecule from carbon 1 to carbon 2?",
+    options: [
+        "A) The sugar becomes a disaccharide.",
+        "B) It changes from glucose to fructose.",
+        "C) It no longer forms glycosidic bonds.",
+        "D) It converts to ribose."
+    ],
+    correct: 1
+},
+{
+    question: "Which of the following is NOT a function of carbohydrates in the cell?",
+    options: [
+        "A) Energy storage",
+        "B) Structural support",
+        "C) Precursor for nucleic acid synthesis",
+        "D) Catalyzing biochemical reactions"
+    ],
+    correct: 3
+},
+{
+    question: "Why can humans digest starch but not cellulose, despite both being composed of glucose molecules?",
+    options: [
+        "A) Starch is composed of alpha-glucose, while cellulose contains beta-glucose.",
+        "B) Cellulose contains fructose, which cannot be broken down.",
+        "C) Humans lack enzymes to break down the alpha-1,4 linkages in cellulose.",
+        "D) Starch is a disaccharide, while cellulose is a polysaccharide."
+    ],
+    correct: 0
+},
+{
+    question: "What type of bond forms between two glucose molecules in glycogen?",
+    options: [
+        "A) Beta-1,4 glycosidic bond",
+        "B) Alpha-1,4 glycosidic bond",
+        "C) Alpha-1,6 glycosidic bond",
+        "D) Peptide bond"
+    ],
+    correct: 1
+},
+{
+    question: "What structural difference between saturated and unsaturated fatty acids affects their physical state at room temperature?",
+    options: [
+        "A) Saturated fatty acids contain double bonds, making them more solid at room temperature.",
+        "B) Unsaturated fatty acids have cis double bonds, causing kinks in the chain and preventing tight packing.",
+        "C) Unsaturated fatty acids are longer, allowing for stronger van der Waals forces.",
+        "D) Saturated fatty acids have fewer carbons, which increases their melting point."
+    ],
+    correct: 1
+},
+{
+    question: "Which of the following best describes the role of essential fatty acids like linoleic and linolenic acids?",
+    options: [
+        "A) They are synthesized in the body from glucose.",
+        "B) They are necessary for protein folding.",
+        "C) They are precursors to important signaling molecules and must be obtained from the diet.",
+        "D) They are components of the phospholipid bilayer and provide structural integrity."
+    ],
+    correct: 2
+},
+{
+    question: "What role does cholesterol play in eukaryotic cell membranes?",
+    options: [
+        "A) It serves as an enzyme for breaking down carbohydrates.",
+        "B) It acts as a precursor for protein synthesis.",
+        "C) It stabilizes the membrane and maintains its fluidity.",
+        "D) It facilitates the transport of fatty acids across the membrane."
+    ],
+    correct: 2
+},
+{
+    question: "If a triglyceride consists of longer fatty acid chains, how will its physical properties likely change?",
+    options: [
+        "A) It will become more solid at room temperature.",
+        "B) It will become more soluble in water.",
+        "C) It will increase in electrical conductivity.",
+        "D) It will have more double bonds."
+    ],
+    correct: 0
+},
+{
+    question: "Which type of bond forms between amino acids during protein synthesis?",
+    options: [
+        "A) Glycosidic bond",
+        "B) Ionic bond",
+        "C) Hydrogen bond",
+        "D) Peptide bond"
+    ],
+    correct: 3
+},
+{
+    question: "What level of protein structure involves the folding of a polypeptide into alpha helices and beta-pleated sheets?",
+    options: [
+        "A) Primary structure",
+        "B) Secondary structure",
+        "C) Tertiary structure",
+        "D) Quaternary structure"
+    ],
+    correct: 1
+},
+{
+    question: "How does a mutation that alters a single amino acid in a protein potentially disrupt the protein’s function?",
+    options: [
+        "A) It changes the protein’s primary structure, but other levels remain unaffected.",
+        "B) It alters the protein’s tertiary structure, affecting its folding and function.",
+        "C) It prevents glycosidic bonds from forming, resulting in a loss of function.",
+        "D) It only affects the protein's ability to interact with water."
+    ],
+    correct: 1
+},
+{
+    question: "Which of the following diseases is most likely caused by protein misfolding?",
+    options: [
+        "A) Diabetes",
+        "B) Alzheimer’s disease",
+        "C) Sickle cell anemia",
+        "D) Phenylketonuria"
+    ],
+    correct: 1
+},
+{
+    question: "Which nitrogenous bases are classified as purines?",
+    options: [
+        "A) Adenine and cytosine",
+        "B) Guanine and thymine",
+        "C) Adenine and guanine",
+        "D) Uracil and cytosine"
+    ],
+    correct: 2
+},
+{
+    question: "What is the key difference between the nucleotides found in RNA and DNA?",
+    options: [
+        "A) RNA contains uracil, while DNA contains thymine.",
+        "B) RNA contains thymine, while DNA contains uracil.",
+        "C) RNA uses deoxyribose as a sugar, while DNA uses ribose.",
+        "D) DNA contains ribose, while RNA contains glucose."
+    ],
+    correct: 0
+},
+{
+    question: "What type of bond holds the two strands of a DNA molecule together?",
+    options: [
+        "A) Ionic bonds",
+        "B) Covalent bonds",
+        "C) Hydrogen bonds",
+        "D) Phosphodiester bonds"
+    ],
+    correct: 2
+},
+{
+    question: "Which of the following accurately describes the pairing of nitrogenous bases in DNA?",
+    options: [
+        "A) Cytosine pairs with adenine.",
+        "B) Guanine pairs with thymine.",
+        "C) Guanine pairs with cytosine.",
+        "D) Thymine pairs with uracil."
+    ],
+    correct: 2
+},
+{
+    question: "How do nucleotides serve as energy carriers in cells?",
+    options: [
+        "A) They form peptide bonds between proteins.",
+        "B) They store energy in their phosphate bonds, such as in ATP.",
+        "C) They store genetic information in the cell nucleus.",
+        "D) They catalyze reactions in metabolic pathways."
+    ],
+    correct: 1
+},
+{
+    question: "Which of the following organic molecules serves as both an energy molecule and a structural component of cells?",
+    options: [
+        "A) Carbohydrates",
+        "B) Nucleic acids",
+        "C) Lipids",
+        "D) Proteins"
+    ],
+    correct: 0
+},
+{
+    question: "How does cholesterol help maintain membrane fluidity under varying temperature conditions?",
+    options: [
+        "A) It increases membrane rigidity at high temperatures.",
+        "B) It stabilizes the membrane by ionizing phospholipid heads at cold temperatures.",
+        "C) It embeds in the lipid bilayer to disrupt phospholipid interactions at low temperatures.",
+        "D) It increases fluidity at cold temperatures and stabilizes the membrane at high temperatures."
+    ],
+    correct: 3
+},
+{
+    question: "Which component of the cell membrane is most likely to be involved in signal transduction?",
+    options: [
+        "A) Phosphatidylcholine",
+        "B) Integral proteins",
+        "C) Cholesterol",
+        "D) Glycolipids"
+    ],
+    correct: 1
+},
+{
+    question: "In Tay-Sachs disease, a defect in lipid metabolism affects the composition of the cell membrane. Which aspect of membrane function is most likely disrupted in this condition?",
+    options: [
+        "A) Membrane fluidity",
+        "B) Protein synthesis",
+        "C) Selective permeability",
+        "D) Cytoskeleton anchoring"
+    ],
+    correct: 2
+},
+{
+    question: "How does the fluid mosaic model explain the ability of proteins to move within the lipid bilayer?",
+    options: [
+        "A) Phospholipids and proteins form rigid complexes that prevent movement.",
+        "B) Proteins can be pulled by the cytoskeleton, allowing them to move within the viscous membrane.",
+        "C) Hydrophobic interactions between lipids and proteins immobilize the proteins.",
+        "D) Membrane lipids are solid at body temperature, forcing proteins to stay in fixed positions."
+    ],
+    correct: 1
+},
+{
+    question: "What type of membrane transport is involved when gases like oxygen move across the membrane without the use of energy?",
+    options: [
+        "A) Active transport",
+        "B) Facilitated diffusion",
+        "C) Osmosis",
+        "D) Passive diffusion"
+    ],
+    correct: 3
+},
+{
+    question: "How does the phospholipid composition on the outer and inner layers of the membrane contribute to membrane function?",
+    options: [
+        "A) Phosphatidylserine and ethanolamine on the outer layer promote external signaling.",
+        "B) The presence of sphingomyelin on the outer layer aids in nerve cell function.",
+        "C) Lipid asymmetry does not contribute to membrane function.",
+        "D) Choline and myelin on the inside enhance cytoplasmic interactions."
+    ],
+    correct: 1
+},
+{
+    question: "What is the most likely consequence of a membrane lacking aquaporins?",
+    options: [
+        "A) Inability to maintain ion gradients",
+        "B) Decreased water permeability",
+        "C) Excessive sodium influx",
+        "D) Increased passive diffusion of gases"
+    ],
+    correct: 1
+},
+{
+    question: "Why is it necessary for cells to have both passive and active transport mechanisms for glucose?",
+    options: [
+        "A) Passive transport works for glucose in low concentrations, while active transport is needed for high concentrations.",
+        "B) Passive diffusion is too slow to meet cellular demands, and active transport allows cells to maintain higher glucose concentrations.",
+        "C) Active transport is needed to maintain a low concentration of glucose in cells.",
+        "D) Passive transport requires ATP, while active transport does not."
+    ],
+    correct: 1
+},
+{
+    question: "Which of the following best explains why water-soluble molecules cannot easily pass through the lipid bilayer of a cell membrane?",
+    options: [
+        "A) They are too large to fit between phospholipid molecules.",
+        "B) They are hydrophobic and repel the hydrophilic heads of phospholipids.",
+        "C) The hydrophobic fatty acid tails in the membrane repel water-soluble molecules.",
+        "D) The membrane proteins block their passage."
+    ],
+    correct: 2
+},
+{
+    question: "Which type of membrane protein is responsible for anchoring the cytoskeleton to the cell membrane?",
+    options: [
+        "A) Peripheral proteins",
+        "B) Integral proteins",
+        "C) Glycolipids",
+        "D) Channel proteins"
+    ],
+    correct: 0
+},
+{
+    question: "A mutation affecting the structure of an integral membrane protein most likely affects which of the following?",
+    options: [
+        "A) The ability to anchor cytoskeleton proteins",
+        "B) The binding of carbohydrates to the membrane surface",
+        "C) The formation of ion channels for molecule transport",
+        "D) The fluidity of the lipid bilayer"
+    ],
+    correct: 2
+},
+{
+    question: "Why can't sodium ions diffuse directly through the phospholipid bilayer of a cell membrane?",
+    options: [
+        "A) Sodium ions are too small to interact with the hydrophobic fatty acids.",
+        "B) Sodium ions are hydrophilic and cannot pass through the hydrophobic core.",
+        "C) Sodium ions are chemically reactive and require facilitated transport.",
+        "D) The outer protein heads prevent the passage of charged ions."
+    ],
+    correct: 1
+},
+{
+    question: "What is the role of glycolipids in the cell membrane?",
+    options: [
+        "A) They anchor the cytoskeleton.",
+        "B) They act as channels for ion transport.",
+        "C) They play a role in cell-cell recognition, such as determining blood type.",
+        "D) They stabilize the lipid bilayer in extreme temperatures."
+    ],
+    correct: 2
+},
+{
+    question: "How does cholesterol affect membrane permeability to small water-soluble molecules?",
+    options: [
+        "A) Cholesterol increases permeability by creating gaps in the membrane.",
+        "B) Cholesterol decreases permeability by stabilizing phospholipids and reducing membrane fluidity.",
+        "C) Cholesterol has no effect on membrane permeability.",
+        "D) Cholesterol increases permeability by destabilizing the membrane."
+    ],
+    correct: 1
+},
+{
+    question: "What is the consequence of having dysfunctional flippase enzymes in a cell membrane?",
+    options: [
+        "A) Failure to maintain proper lipid distribution between the inner and outer leaflets.",
+        "B) Increased passive diffusion of hydrophilic molecules.",
+        "C) Increased fluidity of the membrane.",
+        "D) Cholesterol over-accumulation in the inner leaflet of the membrane."
+    ],
+    correct: 0
+},
+{
+    question: "What would happen to a cell membrane if all its peripheral proteins were removed?",
+    options: [
+        "A) The membrane would become impermeable to small molecules.",
+        "B) The cytoskeleton would lose its attachment to the membrane, compromising structural integrity.",
+        "C) The membrane would lose its fluidity.",
+        "D) The membrane would no longer allow the diffusion of gases."
+    ],
+    correct: 1
+},
+{
+    question: "Why is facilitated diffusion necessary for the transport of water-soluble molecules like glucose across the membrane?",
+    options: [
+        "A) The cell membrane is hydrophilic, repelling water-soluble molecules.",
+        "B) Water-soluble molecules are too large to pass through the lipid bilayer without energy input.",
+        "C) Water-soluble molecules cannot pass through the hydrophobic core of the lipid bilayer.",
+        "D) The cell membrane actively prevents the entry of water-soluble molecules to control osmotic balance."
+    ],
+    correct: 2
+},
+{
+    question: "How does the sodium-potassium pump contribute to maintaining the resting membrane potential of a cell?",
+    options: [
+        "A) By allowing passive diffusion of sodium and potassium ions across the membrane.",
+        "B) By using energy to pump sodium ions into the cell and potassium ions out.",
+        "C) By actively transporting sodium out and potassium into the cell, against their concentration gradients.",
+        "D) By using facilitated diffusion to maintain ion gradients."
+    ],
+    correct: 2
+},
+{
+    question: "Which type of protein allows ions like sodium to pass through the cell membrane in response to electrical signals?",
+    options: [
+        "A) Mechanical channels",
+        "B) Chemical channels",
+        "C) Open channels",
+        "D) Voltage-gated channels"
+    ],
+    correct: 3
+},
+{
+    question: "What is the significance of aquaporins in cellular water balance?",
+    options: [
+        "A) They prevent ions from moving across the membrane.",
+        "B) They enable rapid water transport across the membrane, helping regulate cell volume.",
+        "C) They regulate sodium levels within the cell.",
+        "D) They control the passage of oxygen and glycerol through the membrane."
+    ],
+    correct: 1
+},
+    {
+        question: "What is the effect of changing the position of the carbonyl group in a glucose molecule from carbon 1 to carbon 2?",
+        options: [
+            "A) The sugar becomes a disaccharide.",
+            "B) It changes from glucose to fructose.",
+            "C) It no longer forms glycosidic bonds.",
+            "D) It converts to ribose."
+        ],
+        correct: 1
+    },
+    {
+        question: "Which of the following explains why facilitated diffusion for glucose cannot increase indefinitely as extracellular glucose concentration rises?",
+        options: [
+            "A) The glucose carrier proteins become saturated at high glucose concentrations.",
+            "B) The membrane becomes impermeable to glucose at high concentrations.",
+            "C) Facilitated diffusion requires ATP, which depletes at high glucose concentrations.",
+            "D) The concentration gradient reverses as glucose builds up inside the cell."
+        ],
+        correct: 0
+    },
+    {
+        question: "A drug that competes with glucose for binding to its carrier protein will most likely have which of the following effects on glucose transport across the cell membrane?",
+        options: [
+            "A) Increase glucose transport rate",
+            "B) Decrease glucose transport rate due to competitive inhibition",
+            "C) Have no effect on glucose transport",
+            "D) Increase glucose transport by altering the membrane structure"
+        ],
+        correct: 1
+    },
+    {
+        question: "Which of the following would most likely occur if nicotine binds to a glucose carrier protein in the plasma membrane?",
+        options: [
+            "A) Glucose transport would be enhanced due to nicotine's stimulatory effect.",
+            "B) Glucose transport would cease as nicotine inhibits the carrier protein.",
+            "C) Nicotine binding would have no effect on glucose transport.",
+            "D) Glucose transport would increase due to altered membrane fluidity."
+        ],
+        correct: 1
+    },
+    {
+        question: "How does facilitated diffusion differ from simple diffusion?",
+        options: [
+            "A) Facilitated diffusion requires energy, while simple diffusion does not.",
+            "B) Facilitated diffusion moves molecules against their concentration gradient.",
+            "C) Facilitated diffusion requires a carrier protein and exhibits saturation kinetics.",
+            "D) Simple diffusion uses carrier molecules, while facilitated diffusion uses ion channels."
+        ],
+        correct: 2
+    },
+    {
+        question: "A carrier protein transports both glucose and fructose. If fructose concentration increases, what happens to glucose transport?",
+        options: [
+            "A) Glucose transport increases.",
+            "B) Glucose transport remains constant.",
+            "C) Glucose transport decreases due to competition for the carrier protein.",
+            "D) Glucose transport stops completely."
+        ],
+        correct: 2
+    },
+    {
+        question: "Which of the following statements best describes the role of the sodium-potassium pump in maintaining nerve cell function?",
+        options: [
+            "A) It passively moves sodium and potassium across the membrane to maintain equilibrium.",
+            "B) It actively transports three sodium ions out of the cell and two potassium ions into the cell to maintain the resting membrane potential.",
+            "C) It moves both sodium and potassium ions into the cell to maintain osmotic balance.",
+            "D) It uses free energy from glucose metabolism to transport ions."
+        ],
+        correct: 1
+    },
+    {
+        question: "What would be the effect on a cell if its sodium-potassium pumps were inhibited?",
+        options: [
+            "A) The cell would become hyperpolarized due to excess potassium influx.",
+            "B) The cell would be unable to generate action potentials due to the failure to maintain ion gradients.",
+            "C) The cell's glucose uptake would increase due to secondary active transport.",
+            "D) The cell would expel excess sodium via passive diffusion."
+        ],
+        correct: 1
+    },
+    {
+        question: "Which of the following correctly describes how the sodium-potassium pump indirectly supports secondary active transport?",
+        options: [
+            "A) It directly pumps calcium out of the cell, enabling glucose uptake.",
+            "B) It establishes a sodium gradient that provides the energy for glucose to be transported into the cell via symport.",
+            "C) It creates a glucose gradient that allows sodium ions to enter the cell.",
+            "D) It uses ATP to pump both sodium and glucose into the cell simultaneously."
+        ],
+        correct: 1
+    },
+    {
+        question: "A mutation that impairs the function of the F-ATPase in mitochondria would most directly affect which cellular process?",
+        options: [
+            "A) ATP production",
+            "B) Proton pump activity in lysosomes",
+            "C) Sodium-potassium pump function",
+            "D) Glucose transport into cells"
+        ],
+        correct: 0
+    },
+    {
+        question: "In the case of cystic fibrosis, which transport mechanism is defective, and what is the main consequence?",
+        options: [
+            "A) Sodium-potassium pump; impaired nerve signaling",
+            "B) Glucose symport; reduced glucose uptake",
+            "C) Chloride ABC transporter; impaired movement of chloride ions leading to thick mucus buildup",
+            "D) Proton pump; impaired acidification of lysosomes"
+        ],
+        correct: 2
+    },
+    {
+        question: "If a researcher blocks a cell's ATP supply, which of the following transport processes would most likely be directly affected?",
+        options: [
+            "A) Simple diffusion of oxygen",
+            "B) Facilitated diffusion of glucose",
+            "C) Primary active transport of sodium ions",
+            "D) Osmosis of water"
+        ],
+        correct: 2
+    },
+    {
+        question: "Which of the following scenarios represents a uniport transport system?",
+        options: [
+            "A) Glucose and sodium being transported into the cell simultaneously.",
+            "B) A carrier protein moving a single potassium ion out of the cell.",
+            "C) Sodium being pumped out of the cell while potassium is pumped in.",
+            "D) Calcium and hydrogen ions being exchanged across a membrane."
+        ],
+        correct: 1
+    },
+    {
+        question: "A drug inhibits the V-ATPase proton pump in lysosomes. What would be the most likely effect on the lysosomal environment?",
+        options: [
+            "A) The pH would become more acidic, increasing enzyme activity.",
+            "B) The pH would become less acidic, reducing enzyme activity.",
+            "C) The pH would remain unchanged, but enzyme activity would increase.",
+            "D) The pH would remain unchanged, but enzyme activity would decrease."
+        ],
+        correct: 1
+    },
+    {
+        question: "How does symport differ from antiport in terms of molecular movement across the membrane?",
+        options: [
+            "A) Symport moves two molecules in the same direction, while antiport moves them in opposite directions.",
+            "B) Symport moves ions, while antiport moves non-ionic molecules.",
+            "C) Symport requires ATP, while antiport does not.",
+            "D) Symport uses facilitated diffusion, while antiport uses primary active transport."
+        ],
+        correct: 0
+    },
+    {
+        question: "What is the primary energy source for secondary active transport in a cell?",
+        options: [
+            "A) ATP generated directly at the transporter site",
+            "B) The free energy from the concentration gradient of another molecule, such as sodium",
+            "C) Glucose oxidation in the mitochondria",
+            "D) Simple diffusion across the membrane"
+        ],
+        correct: 1
+    },
+    {
+        question: "A researcher observes a white blood cell engulfing a bacterium by extending pseudopods around it. What process is the white blood cell using, and what is a key difference between this process and pinocytosis?",
+        options: [
+            "A) Pinocytosis; Phagocytosis requires more energy than pinocytosis.",
+            "B) Phagocytosis; Phagocytosis involves engulfing large particles, while pinocytosis is for smaller fluid uptake.",
+            "C) Pinocytosis; Pinocytosis requires specialized receptors, whereas phagocytosis does not.",
+            "D) Phagocytosis; Phagocytosis is a passive process, while pinocytosis requires ATP."
+        ],
+        correct: 1
+    },
+    {
+        question: "Caveolae are found in several cell types, including endothelial cells. Which of the following best describes the proposed function of caveolae in these cells?",
+        options: [
+            "A) Caveolae are involved in transporting specific hormones into the cell.",
+            "B) Caveolae may regulate cell membrane surface area without bringing in extracellular material.",
+            "C) Caveolae are responsible for the formation of pseudopods during phagocytosis.",
+            "D) Caveolae create acidic environments for enzyme activity within vesicles."
+        ],
+        correct: 1
+    },
+    {
+        question: "Which of the following proteins is essential for forming the structure of caveolae in the cell membrane?",
+        options: [
+            "A) Clathrin",
+            "B) Caveolin",
+            "C) SNARE",
+            "D) COPI"
+        ],
+        correct: 1
+    },
+    {
+        question: "Which of the following statements correctly distinguishes the roles of COPI and COPII in intracellular trafficking?",
+        options: [
+            "A) COPI mediates retrograde transport from the Golgi to the ER, while COPII mediates anterograde transport from the ER to the Golgi.",
+            "B) COPI and COPII both mediate transport from the Golgi to the plasma membrane.",
+            "C) COPI mediates transport from the Golgi to lysosomes, while COPII transports materials from the ER to the mitochondria.",
+            "D) COPI and COPII mediate different steps of exocytosis."
+        ],
+        correct: 0
+    }
+
+
+        ];
+
+        function loadQuiz() {
+            const quizContainer = document.getElementById('quiz');
+            questions.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'question';
+                questionDiv.innerHTML = `<h2>Question ${index + 1}: ${q.question}</h2>`;
+                
+                const ul = document.createElement('ul');
+                ul.className = 'options';
+                q.options.forEach((option, i) => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `<input type="radio" name="q${index}" value="${i}"> ${option}`;
+                    ul.appendChild(li);
+                });
+                
+                questionDiv.appendChild(ul);
+                quizContainer.appendChild(questionDiv);
+            });
+        }
+
+        function checkAnswers() {
+            let score = 0;
+            questions.forEach((q, index) => {
+                const selected = document.querySelector(`input[name="q${index}"]:checked`);
+                if (selected && parseInt(selected.value) === q.correct) {
+                    score++;
+                    selected.parentNode.classList.add('correct');
+                } else if (selected) {
+                    selected.parentNode.classList.add('incorrect');
+                }
+            });
+            document.getElementById('result').innerHTML = `You scored ${score} out of ${questions.length}`;
+        }
+
+        loadQuiz();
+    </script>
+</body>
+</html>
